@@ -1,0 +1,20 @@
+# General Properties
+server:
+  port: 8761
+
+# Eureka related Properties
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: 'http://${eureka.instance.hostname}:${server.port}/eureka/'
+
+## Security related properties
+app:
+  eureka:
+    security:
+      basic:
+        enabled: false
