@@ -7,6 +7,8 @@ The default port of this Spring Boot Application is `8761` (which is the default
 
 ## Docker Examples
 
+A docker image of this application is available over on [Docker Hub][docker-hub].
+
 After using these examples below, the Eureka Server will be accessible on port `8761`. When you execute these commands 
 locally, the Eureka Server can be reached under [http://localhost:8761/](http://localhost:8761/)
 
@@ -50,3 +52,4 @@ of the Eureka Client:
 [spring-cloud-netflix-ref]: https://docs.spring.io/spring-cloud-netflix/docs/2.2.4.RELEASE/reference/html/
 [spring-security-ref]: https://docs.spring.io/spring-security/site/docs/5.3.4.RELEASE/reference/html5/
 [spring-boot-ext-conf-ref]: https://docs.spring.io/spring-boot/docs/2.3.4.RELEASE/reference/html/spring-boot-features.html#boot-features-external-config
+[docker-hub]: https://hub.docker.com/r/dnl50/eureka-server
