@@ -9,6 +9,8 @@ import javax.validation.constraints.Size;
 
 /**
  * Configuration properties for HTTP basic authentication on eureka endpoints.
+ *
+ * @see dev.mieser.eurekaserver.configuration.EurekaSecurityConfiguration.HttpBasicSecurityConfiguration
  */
 @Data
 @Validated
