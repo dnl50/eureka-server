@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euxo pipefail
 
 # Sets the value of the property containing the current version of the project to the value of the
 # property containing the next version and increments the next version's patch version by 1.

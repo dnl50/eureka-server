@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euxo pipefail
 
 # This script returns the value of a property from the gradle.properties file.
 # Usage: ./get-gradle-property.sh "property-key-name"
