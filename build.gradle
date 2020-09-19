@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'dev.mieser'
-version = '1.0.0'
+version = "${currentProjVersion}"
 sourceCompatibility = '11'
 
 repositories {
@@ -42,4 +42,8 @@ dependencyManagement {
 
 test {
 	useJUnitPlatform()
+}
+
+bootJar {
+	layered()
 }
