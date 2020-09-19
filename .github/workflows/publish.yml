@@ -1,0 +1,77 @@
+name: Publish Image to DockerHub
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  publish-image:
+
+    runs-on: ubuntu-latest
+
+    env:
+      # user prefix is omitted here
+      DOCKER_IMAGE_NAME: eureka-server
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # Increment Version
+      - name: Grant execute permission for util scripts
+        run: chmod +x increment-version.sh && chmod +x get-gradle-property.sh
+      - name: Increment version
+        run: ./increment-version.sh
+
+      # Set env variable CURRENT_VERSION containing version
+      - name: Set current version as an environment variable
+        run: echo "::set-env name=CURRENT_VERSION::$(./get-gradle-property.sh currentProjVersion)"
+
+      # Build the JAR of the application
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Build JAR with Gradle
+        run: ./gradlew build
+
+      # Build and push docker image
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: |
+            dnl50/${{ env.DOCKER_IMAGE_NAME }}:latest
+            dnl50/${{ env.DOCKER_IMAGE_NAME }}:${{ env.CURRENT_VERSION }}
+
+      # Update the DockerHub description using the README.md
+      - name: Update DockerHub description
+        uses: peter-evans/dockerhub-description@v2
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+          DOCKERHUB_REPOSITORY: dnl50/${{ env.DOCKER_IMAGE_NAME }}
+
+      # Commit and push changes made to the gradle.properties file
+      - name: Commit version changes
+        uses: EndBug/add-and-commit@v4
+        with:
+          add: gradle.properties
+          author_name: Daniel Meier
+          author_email: danielmeier50@gmail.com
+          message: 'GitHub Actions: increment version'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

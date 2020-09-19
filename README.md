@@ -12,11 +12,11 @@ locally, the Eureka Server can be reached under [http://localhost:8761/](http://
 
 **HTTP Basic enabled:**
 
-`docker run -p 8761:8761 -d -e APP_EUREKA_SECURITY_BASIC_ENABLED=true -e APP_EUREKA_SECURITY_BASIC_USERNAME=daniel -e APP_EUREKA_SECURITY_BASIC_PASSWORD=secret dnl50/eureka-server:latest`
+`docker run -p 8761:8761 -d -e APP_EUREKA_SECURITY_BASIC_ENABLED=true -e APP_EUREKA_SECURITY_BASIC_USERNAME=daniel -e APP_EUREKA_SECURITY_BASIC_PASSWORD=secret --name eureka-server dnl50/eureka-server:latest`
 
 **HTTP Basic disabled:**
 
-`docker run -p 8761:8761 dnl50/eureka-server:latest`
+`docker run -p 8761:8761 -d --name eureka-server dnl50/eureka-server:latest`
 
 ## Common Configuration Properties
 
