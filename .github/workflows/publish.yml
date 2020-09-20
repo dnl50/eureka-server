@@ -72,6 +72,8 @@ jobs:
           add: gradle.properties
           author_name: Daniel Meier
           author_email: danielmeier50@gmail.com
-          message: 'GitHub Actions: increment version'
+          message: "GitHub Actions: release version ${{ env.CURRENT_VERSION }}"
+          tag: ${{ env.CURRENT_VERSION }}
+          ref: master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
