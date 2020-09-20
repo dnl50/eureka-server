@@ -89,6 +89,6 @@ jobs:
           author_name: Daniel Meier
           author_email: danielmeier50@gmail.com
           message: "GitHub Actions: set next version to ${{ env.NEXT_VERSION }}"
-          ref: master
+          ref: 'origin/master'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
