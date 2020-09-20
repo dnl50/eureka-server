@@ -22,9 +22,13 @@ jobs:
       - name: Increment version
         run: ./increment-version.sh
 
-      # Set env variable CURRENT_VERSION containing version
+      # Set env variable CURRENT_VERSION containing current version
       - name: Set current version as an environment variable
         run: echo "::set-env name=CURRENT_VERSION::$(./get-gradle-property.sh currentProjVersion)"
+
+      # Set env variable NEXT_VERSION containing next version
+      - name: Set next version as an environment variable
+        run: echo "::set-env name=NEXT_VERSION::$(./get-gradle-property.sh nextProjVersion)"
 
       # Build the JAR of the application
       - name: Set up JDK 11
@@ -65,8 +69,8 @@ jobs:
           DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
           DOCKERHUB_REPOSITORY: dnl50/${{ env.DOCKER_IMAGE_NAME }}
 
-      # Commit and push changes made to the gradle.properties file
-      - name: Commit version changes
+      # Tag release
+      - name: Tag release
         uses: EndBug/add-and-commit@v4
         with:
           add: gradle.properties
@@ -74,6 +78,17 @@ jobs:
           author_email: danielmeier50@gmail.com
           message: "GitHub Actions: release version ${{ env.CURRENT_VERSION }}"
           tag: ${{ env.CURRENT_VERSION }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Commit and push changes made to the gradle.properties file to master
+      - name: Commit version changes
+        uses: EndBug/add-and-commit@v4
+        with:
+          add: gradle.properties
+          author_name: Daniel Meier
+          author_email: danielmeier50@gmail.com
+          message: "GitHub Actions: set next version to ${{ env.NEXT_VERSION }}"
           ref: master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
