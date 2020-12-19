@@ -12,6 +12,7 @@ jobs:
     env:
       # user prefix is omitted here
       DOCKER_IMAGE_NAME: eureka-server
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
     steps:
       - uses: actions/checkout@v2
