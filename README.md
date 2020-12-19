@@ -50,6 +50,6 @@ of the Eureka Client:
 `eureka.client.service-url.defaultZone=http://{username}:{password}@{domain}:{port}/eureka/`
 
 [spring-cloud-netflix-ref]: https://docs.spring.io/spring-cloud-netflix/docs/2.2.4.RELEASE/reference/html/
-[spring-security-ref]: https://docs.spring.io/spring-security/site/docs/5.3.4.RELEASE/reference/html5/
-[spring-boot-ext-conf-ref]: https://docs.spring.io/spring-boot/docs/2.3.4.RELEASE/reference/html/spring-boot-features.html#boot-features-external-config
+[spring-security-ref]: https://docs.spring.io/spring-security/site/docs/5.3.6.RELEASE/reference/html5/
+[spring-boot-ext-conf-ref]: https://docs.spring.io/spring-boot/docs/2.3.7.RELEASE/reference/html/spring-boot-features.html#boot-features-external-config
 [docker-hub]: https://hub.docker.com/r/dnl50/eureka-server
